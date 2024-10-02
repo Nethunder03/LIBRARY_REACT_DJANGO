@@ -1,0 +1,26 @@
+.modal-content {
+    background-color: rgb(65, 65, 65);
+}
+
+.modal-header h5 {
+    color: aliceblue;
+}
+
+.info{
+    color: aliceblue;
+    text-align: left;
+    margin-top: -1rem;
+    padding-bottom: 1.5rem;
+}
+
+
+.summary {
+    text-align: justify;
+    color: aliceblue;
+    padding-bottom: 2rem;
+}
+
+.summary label {
+    tab-size: 10rem;
+}
+

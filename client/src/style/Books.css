@@ -9,9 +9,7 @@
 }
 
 html, body {
-    height: 100%;
     background-color: #152733;
-    overflow: hidden;
 }
 
 
@@ -25,7 +23,6 @@ html, body {
 
 
 .form-content {
-    border: 3px solid #fff;
     padding: 20px 40px;
     display: inline-block;
     width: 100%;
@@ -47,7 +44,7 @@ html, body {
     color: #000000;
 }
 
-.form-content input[type=text], .form-content input[type=date], .form-content input[type=file], .form-content select {
+.form-content input[type=text], .form-content input[type=date], .form-content input[type=file], .form-content input[type=textarea], .form-content select {
     width: 100%;
     padding: 9px 20px;
     text-align: left;
@@ -63,13 +60,6 @@ html, body {
     margin-top: 16px;
 }
 
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
-    background-color: #0088ff;
-    outline: none !important;
-    border: none !important;
-     box-shadow: none;
-}
 
 
 .mv-up{

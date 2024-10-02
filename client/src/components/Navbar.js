@@ -13,7 +13,7 @@ export default function NavBar(){
                    aria-label="Search"/>
             <ul className="navbar-nav px-3">
                 <li className="nav-item text-nowrap" style={{marginLeft: "1rem"}}>
-                    <Link to='/homelib/' className="btn btn-sm btn-primary" >Home</Link>
+                    <Link to='/home//' className="btn btn-sm btn-primary" >Home</Link>
                     <Link to='/main/' className="btn btn-sm btn-primary" style={{marginLeft: "1rem"}}>Livres</Link>
                     <Link to='/main/loans/' className="btn btn-sm btn-primary" style={{marginLeft: "1rem"}}>Emprunts</Link>
                     <Link to='/main/users/' className="btn btn-sm btn-primary" style={{marginLeft: "1rem"}}>Utilisateurs</Link>

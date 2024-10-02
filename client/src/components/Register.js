@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../style/Register.css';
+import { jwtDecode } from 'jwt-decode';
+
+
+
 
 export default function Register() {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState(''); // Ajout pour la confirmation du mot de passe
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+
 
     const handleSignupClick = () => {
         setIsLogin(false);
@@ -22,36 +28,45 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         if (!isLogin && password !== confirmPassword) {
-            alert('Les mots de passe ne correspondent pas.'); // Alerte si les mots de passe ne sont pas identiques
+            alert('Les mots de passe ne correspondent pas.');
             return;
         }
 
         const userData = { email, password };
 
         if (isLogin) {
-            // Requête pour connexion
-            axios.post('http://127.0.0.1:8000/api/users/login/', userData)
+            axios.post('http://127.0.0.1:8000/users/login/', userData)
                 .then(response => {
-                    const user = response.data;
-                    if (user.is_admin) {
-                        navigate('/admin');
+                    const { access } = response.data;
+                    const tokenData = jwtDecode(access); // Utilisez jwtDecode ici
+
+                    localStorage.setItem('token', access);
+                    localStorage.setItem('is_admin', tokenData.is_admin);
+
+                    if (tokenData.is_admin) {
+                        navigate('/main');  // Redirige vers la page admin
                     } else {
-                        navigate('/client');
+                        navigate('/home');   // Redirige vers la page home
                     }
                 })
-                .catch(error => console.error('Erreur lors de la connexion:', error));
+                .catch(error => {
+                    setError('Erreur lors de la connexion.');
+                    console.error('Erreur lors de la connexion:', error);
+                });
+
         } else {
-            // Requête pour inscription
             const newUser = { first_name: firstName, last_name: lastName, email, password };
-            axios.post('http://127.0.0.1:8000/api/users/', newUser)
-                .then(response => {
-                    navigate('/client'); // Rediriger vers la page client après l'inscription
-                })
-                .catch(error => console.error('Erreur lors de l\'inscription:', error));
+            axios.post('http://127.0.0.1:8000/users/create/', newUser)
+                .then(response => navigate('/client'))
+                .catch(error => {
+                    setError('Erreur lors de l\'inscription.');
+                    console.error('Erreur lors de l\'inscription:', error);
+                });
         }
     };
+    
 
     return (
         <>
@@ -105,7 +120,7 @@ export default function Register() {
                             name="confirmPassword"
                             placeholder="Confirmer le Mot de Passe"
                             value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)} // État pour la confirmation du mot de passe
+                            onChange={(e) => setConfirmPassword(e.target.value)} 
                             required
                         />
                         <input

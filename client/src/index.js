@@ -5,6 +5,7 @@ import './style/Register.css';
 import './style/bootstrap.min.css';
 import './style/Books.css';
 import './style/Loans.css';
+import './style/Modal.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

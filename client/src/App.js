@@ -1,32 +1,30 @@
-import './App.css';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Register from './components/Register';
-import UserForm from './components/UserForm';
-import UserList from './components/UserList';
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainLib from './server/MainLib';
-import HomeLib from './client/HomeLib';
-import Books from './components/Books';
-import Loans from './components/Loans';
 import Users from './components/Users';
-
+import Books from './components/Books';
+import HomeLib from './client/HomeLib';
+import Loans from './components/Loans';
+import Register from './components/Register';
+import PrivateRoute from './components/PrivateRoute';
+import { Navigate } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div>
         <Routes>
-          <Route path='/main' exact element={<MainLib/>}/>
-          <Route path='/homelib' exact element={<HomeLib/>}/>
-          <Route path='/main/books/' exact element={<Books/>}/>
-          <Route path='/main/loans/' exact element={<Loans/>}/>
-          <Route path='/main/users/' exact element={<Users/>}/>
-          <Route path='/form' exact element={<UserForm/>}/>
-          <Route path='/userlist' exact element={<UserList/>}/>
-          <Route path='/' exact element={<Register/>}/>
-
+          <Route path="/login" element={<Register />} />
+          {/* <PrivateRoute  path="/profile" element={<MainLib/>} /> */}
+          <Route  path="/main/users/" element={<PrivateRoute><Users/></PrivateRoute>} />
+          <Route path="/home/" element={<PrivateRoute><HomeLib /></PrivateRoute>} />
+          <Route path="/main/" element={<PrivateRoute><MainLib /></PrivateRoute>} />
+          <Route  path='/main/loans/' element={<PrivateRoute><Loans/></PrivateRoute>} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

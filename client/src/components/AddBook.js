@@ -1,15 +1,12 @@
 import React from 'react';
 
-const AddBook = ({book, showCartModal, isEditing, setShowCartModal, handleChange, handleSubmit}) => {
+const AddBook = ({book, isEditing, handleSubmit, handleChange,}) => {
+    
     return (
-        <div className={`modal fade ${showCartModal ? 'show d-block' : ''}`} tabIndex="-1" role="dialog" aria-labelledby="cartLabel" aria-hidden={!showCartModal}>
-        <div className="modal-dialog" role="document">
+
             <div className="modal-content">
                 <div className="modal-header">
                 <h3>{isEditing ? 'Modifier un Livre' : 'Ajouter un Livre'}</h3>
-                    <button type="button" className="close" onClick={() => setShowCartModal(false)}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 
                 <div className="form-holder">
@@ -73,6 +70,17 @@ const AddBook = ({book, showCartModal, isEditing, setShowCartModal, handleChange
                         </div>
 
                         <div className="col-md-12">
+                        <textarea
+                            className="form-control"
+                            name="summary"
+                            placeholder="Résumé"
+                            value={book.summary}
+                            onChange={handleChange}
+                            required
+                        />
+                        </div>
+
+                        <div className="col-md-12">
                             <input
                                 className="form-control"
                                 type="date"
@@ -97,8 +105,8 @@ const AddBook = ({book, showCartModal, isEditing, setShowCartModal, handleChange
                         <div className="col-md-12">
                             <select
                                 className="form-select mt-3"
-                                name="avalability"
-                                value={book.avalability}
+                                name="availability"
+                                value={book.availability}
                                 onChange={handleChange}
                                 required
                             >
@@ -137,8 +145,6 @@ const AddBook = ({book, showCartModal, isEditing, setShowCartModal, handleChange
                 <div className="modal-body" id="cart-content">
                 </div>
             </div>
-        </div>
-    </div>
     );
 };
 
